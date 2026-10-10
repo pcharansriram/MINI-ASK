@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MiniAsk is a privacy-first developer Q&amp;A platform and offline heuristic answer engine built with pure HTML5, CSS3, and Vanilla JavaScript.">
+  <meta name="keywords" content="MiniAsk, developer Q&amp;A, privacy, offline answers, Vanilla JS, HTML5, CSS3">
+  <meta name="author" content="MiniAsk Team">
+
+  <title>MiniAsk — Privacy-First Developer Q&amp;A &amp; Demo Heuristic Engine</title>
+
+  <!-- Scalable SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/icons/128x128.png">
+
+  <!-- Core Vanilla Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Site Header & Navigation
+       ========================================================================= -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <a href="#hero-section" class="site-logo" aria-label="MiniAsk Home">
+        <img src="assets/images/logo.svg" alt="MiniAsk Logo" class="logo-image" width="160" height="38">
+      </a>
+
+      <!-- Primary Navigation -->
+      <nav id="primary-nav" aria-label="Main Navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#hero-section" class="nav-link">Home</a></li>
+          <li><a href="#ask-section" class="nav-link">Ask Engine</a></li>
+          <li><a href="#feed-section" class="nav-link">Community Feed</a></li>
+          <li>
+            <a href="#feed-section" class="nav-link" id="nav-bookmarks-link" title="View saved bookmarks">
+              <span>Saved</span>
+              <span class="badge-counter" id="header-bookmarks-badge" style="display: none;">0</span>
+            </a>
+          </li>
+          <li><a href="#feedback-section" class="nav-link">Contact &amp; Feedback</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Controls -->
+      <div class="header-actions">
+        <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <span id="theme-icon">☀️</span>
+          <span id="theme-label">Light</span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       Main Content Area
+       ========================================================================= -->
+  <main id="main-content">
+
+    <!-- 1. Hero Section -->
+    <section id="hero-section" class="hero-section" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-pill-badge">
+              <span>🛡️ Explicit Security Boundary</span>
+              <span class="hotkey-tag">Alt + Space</span>
+            </div>
+
+            <h1 id="hero-heading" class="hero-title">
+              Instant Answers.<br>
+              <span class="hero-title-highlight">Zero Cloud Leaks.</span><br>
+              Developer Privacy First.
+            </h1>
+
+            <p class="hero-subtitle">
+              MiniAsk protects your code buffers, tokens, and credentials with transparent client-side heuristics. Ask any technical question or browse verified community solutions without sending private data to third-party AI clouds.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#ask-section" class="btn-primary">
+                <span>⚡</span>
+                <span>Ask Heuristic Engine</span>
+              </a>
+              <a href="#feed-section" class="btn-secondary">
+                <span>📚</span>
+                <span>Browse Community Feed</span>
+              </a>
+            </div>
+
+            <div class="hero-trust-row">
+              <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Pure Vanilla Frontend</span>
+              </div>
+              <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>100% Offline Compatible</span>
+              </div>
+              <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Local Redaction Rules</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-illustration-wrapper">
+            <img src="assets/images/hero-illustration.svg" alt="MiniAsk Context Sanitization Preview" class="hero-illustration" width="480" height="340">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Question Asker & Demo Engine Section -->
+    <section id="ask-section" class="ask-section" aria-labelledby="ask-heading">
+      <div class="container">
+        <div class="ask-panel-card">
+          <div class="ask-header">
+            <div class="section-label">Interactive Demo Engine</div>
+            <h2 id="ask-heading" class="section-heading">Ask a Technical Question</h2>
+            <p class="section-desc">Type your error message or query below. MiniAsk evaluates it using local heuristic pattern matching.</p>
+          </div>
+
+          <form id="ask-form" class="ask-form" novalidate>
+            <label for="ask-input" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Type your question or error</label>
+            <textarea 
+              id="ask-input" 
+              class="ask-textarea" 
+              placeholder="e.g. Why do I get TypeError: unsupported operand type(s) for +=: 'int' and 'str'? How to fix CORS errors?"
+              rows="3"
+              required></textarea>
+
+            <div class="ask-controls-row">
+              <div class="ask-category-wrapper">
+                <label for="ask-category-select" class="select-label">Category:</label>
+                <select id="ask-category-select" class="form-select">
+                  <option value="all">Auto-Detect</option>
+                  <option value="frontend">Frontend (HTML/CSS/JS)</option>
+                  <option value="backend">Backend &amp; APIs</option>
+                  <option value="security">Security &amp; Privacy</option>
+                  <option value="python">Python &amp; Data</option>
+                  <option value="desktop">Windows &amp; Desktop</option>
+                </select>
+              </div>
+
+              <button type="submit" id="ask-submit-btn" class="btn-primary">
+                <span id="ask-spinner" class="spinner" style="display: none;" aria-hidden="true"></span>
+                <span id="ask-btn-text">Ask MiniAsk</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Generated Demo Answer Card -->
+          <div id="answer-result-card" class="answer-result-card" style="display: none;" aria-live="polite">
+            <div id="answer-result-content"></div>
+            <div class="result-actions-row">
+              <button type="button" id="dismiss-answer-btn" class="btn-text">Dismiss</button>
+              <button type="button" id="publish-to-feed-btn" class="btn-primary">
+                <span>➕</span>
+                <span>Publish to Community Feed</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Trending Suggestions -->
+          <div class="trending-suggestions-block">
+            <div class="trending-header">
+              <span>Trending Queries</span>
+            </div>
+            <div class="trending-chips-row" id="trending-chips-container">
+              <!-- Dynamically populated from questions.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Community Q&A Feed Section -->
+    <section id="feed-section" class="feed-section" aria-labelledby="feed-heading">
+      <div class="container">
+        <div class="feed-header-block">
+          <div>
+            <div class="section-label">Knowledge Base</div>
+            <h2 id="feed-heading" class="section-heading">Community Q&amp;A Feed</h2>
+            <p class="section-desc">Search, filter, bookmark, and vote on verified technical solutions.</p>
+          </div>
+          <span class="feed-count-badge" id="feed-count-badge">Loading questions…</span>
+        </div>
+
+        <!-- Feed Filtering and Sorting Bar -->
+        <div class="feed-controls-bar">
+          <div class="search-and-sort-row">
+            <div class="search-box-wrapper">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input 
+                type="search" 
+                id="search-input" 
+                class="search-input" 
+                placeholder="Search questions, answers, tags, or code snippets…" 
+                aria-label="Search questions">
+            </div>
+
+            <div class="sort-and-bookmark-controls">
+              <label for="sort-select" class="select-label">Sort By:</label>
+              <select id="sort-select" class="form-select">
+                <option value="recent">Most Recent</option>
+                <option value="upvotes">Highest Upvoted</option>
+                <option value="views">Most Viewed</option>
+              </select>
+
+              <label class="bookmark-toggle-label" for="bookmarks-filter-toggle">
+                <input type="checkbox" id="bookmarks-filter-toggle" class="bookmark-toggle-input">
+                <span>★ Saved Only</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Category Pills Tabs -->
+          <div class="category-pills-row" id="category-pills-container" role="tablist" aria-label="Question Categories">
+            <!-- Dynamically populated from questions.js -->
+          </div>
+        </div>
+
+        <!-- Questions Feed List Container -->
+        <div id="questions-list-container" class="questions-list">
+          <!-- Dynamically populated from main.js -->
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="empty-state-container" class="empty-state" style="display: none;">
+          <span class="empty-icon" aria-hidden="true">🔎</span>
+          <h3 class="empty-title">No Matching Questions Found</h3>
+          <p class="empty-desc">We couldn't find any questions matching your current filters or search keywords.</p>
+          <button type="button" id="clear-filters-btn" class="btn-secondary">Clear All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Contact & Feedback Form Section -->
+    <section id="feedback-section" class="feedback-section" aria-labelledby="feedback-heading">
+      <div class="container">
+        <div class="feedback-grid">
+          <div class="feedback-info">
+            <div class="section-label">Connect &amp; Contribute</div>
+            <h2 id="feedback-heading" class="feedback-info-heading">Feedback &amp; Inquiries</h2>
+            <p class="feedback-info-text">
+              Have suggestions for new heuristic rule sets, local redaction patterns, or privacy enhancements? Send us a message below.
+            </p>
+
+            <div class="privacy-pledge-card">
+              <div class="pledge-title">
+                <span>🔒</span>
+                <span>Client-Side Privacy Guarantee</span>
+              </div>
+              <p class="pledge-text">
+                Your submissions are stored locally in your browser's LocalStorage. No server telemetry, trackers, or external database logs are ever triggered.
+              </p>
+            </div>
+          </div>
+
+          <div class="feedback-form-card">
+            <div id="feedback-success-notice" class="success-banner" style="display: none;" role="status">
+              ✓ Thank you! Your feedback has been stored safely in your client browser session.
+            </div>
+
+            <form id="feedback-form" class="feedback-form" novalidate>
+              <div class="form-group">
+                <label for="fb-name" class="form-label">
+                  Your Full Name <span class="required-star">*</span>
+                </label>
+                <input type="text" id="fb-name" class="form-input" placeholder="e.g. Alex Turing" required>
+                <div id="fb-name-error" class="field-error-msg" role="alert"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="fb-email" class="form-label">
+                  Email Address <span class="required-star">*</span>
+                </label>
+                <input type="email" id="fb-email" class="form-input" placeholder="e.g. alex@example.com" required>
+                <div id="fb-email-error" class="field-error-msg" role="alert"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="fb-category" class="form-label">Feedback Topic</label>
+                <select id="fb-category" class="form-select" style="width: 100%;">
+                  <option value="general">General Suggestion</option>
+                  <option value="heuristic">New Heuristic Rule Proposal</option>
+                  <option value="privacy">Security &amp; Redaction Enhancement</option>
+                  <option value="bug">Bug Report / UX Issue</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fb-message" class="form-label">
+                  Message <span class="required-star">*</span>
+                </label>
+                <textarea id="fb-message" class="form-input" rows="4" placeholder="Share your detailed feedback or rule suggestions (at least 10 characters)..." required></textarea>
+                <div id="fb-message-error" class="field-error-msg" role="alert"></div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="align-self: flex-start;">
+                <span>✉️</span>
+                <span>Submit Feedback</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       Site Footer
+       ========================================================================= -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <a href="#hero-section" class="site-logo">
+            <img src="assets/images/logo.svg" alt="MiniAsk Logo" class="logo-image" width="140" height="34">
+          </a>
+          <p class="footer-brand-desc">
+            MiniAsk is a zero-leak, privacy-focused Q&amp;A platform and offline heuristic answer engine. Built entirely with pure HTML5, CSS3, and Vanilla JavaScript.
+          </p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero-section" class="footer-link">Home</a></li>
+            <li><a href="#ask-section" class="footer-link">Ask Engine</a></li>
+            <li><a href="#feed-section" class="footer-link">Community Feed</a></li>
+            <li><a href="#feedback-section" class="footer-link">Feedback</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Architecture</h4>
+          <ul class="footer-links-list">
+            <li><span class="footer-link">Pure HTML5 &amp; CSS3</span></li>
+            <li><span class="footer-link">Vanilla JavaScript</span></li>
+            <li><span class="footer-link">Browser LocalStorage</span></li>
+            <li><span class="footer-link">Offline Compatible</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          &copy; 2026 MiniAsk. Open source project under MIT License. No third-party AI APIs or trackers used.
+        </div>
+        <div>
+          <button type="button" id="reset-demo-data-btn" class="reset-demo-btn" title="Reset questions, votes, and bookmarks back to default demo seeds">
+            ↺ Reset Demo Seeds
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       Vanilla JavaScript Modules (Loaded in dependency order)
+       Compatible with both http:// and file:// protocols without CORS issues
+       ========================================================================= -->
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
